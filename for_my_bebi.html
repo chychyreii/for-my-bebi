@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Bebi ♡</title>
+<style>
+  :root{--blue:#8db4e5;--deep:#24518f;--pale:#edf5ff;--ink:#243b5b;--pink:#f7dce6}
+  *{box-sizing:border-box}
+  body{margin:0;background:#e8eef8;color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif}
+  button{font:inherit;cursor:pointer}
+  .book{width:min(100%,850px);margin:0 auto;min-height:100vh;background:#fff;box-shadow:0 10px 40px #193a6320;overflow:hidden}
+  .page{display:none;min-height:100vh;padding:clamp(22px,6vw,56px);position:relative;background-color:#f8fbff;
+    background-image:linear-gradient(90deg,#ffffffb0 1px,transparent 1px),linear-gradient(#ffffffb0 1px,transparent 1px);
+    background-size:24px 24px}
+  .page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;animation:appear .5s ease}
+  @keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .gingham{background-color:#e8f0fc;background-image:linear-gradient(90deg,#ffffffb8 50%,transparent 50%),linear-gradient(#ffffffb8 50%,transparent 50%);background-size:34px 34px;background-position:0 0,17px 17px}
+  .eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:.72rem;color:#5278a9;font-weight:bold}
+  h1,h2,p{margin-top:0}
+  h1{font-size:clamp(2.3rem,8vw,4.5rem);line-height:1.05;color:var(--deep);margin:12px 0}
+  h2{font-size:clamp(1.6rem,5vw,2.5rem);color:var(--deep);text-align:center}
+  p{line-height:1.8}
+  .cover-title{font-weight:900;text-align:center;text-shadow:2px 3px 0 white}
+  .sub{text-align:center;max-width:500px}
+  .sticker{font-size:4rem;margin:10px 0;filter:drop-shadow(2px 4px 0 #fff)}
+  .pill{border:0;border-radius:999px;padding:13px 23px;background:var(--deep);color:#fff;font-weight:bold;box-shadow:0 5px 0 #193b6b;margin:8px}
+  .pill.secondary{background:white;color:var(--deep);border:2px solid #b8cfee;box-shadow:none}
+  .nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:24px}
+  .calendar{width:100%;max-width:560px;border:2px solid #9ebbe2;background:#fff;box-shadow:7px 7px 0 #c9daf0}
+  .calhead{background:#294f90;color:white;padding:14px;text-align:center;font-weight:bold;font-size:1.15rem}
+  .week,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
+  .week div{padding:8px 0;background:#dce8f8;font-size:.7rem;font-weight:bold}
+  .day{min-height:55px;border:1px solid #d7e0ed;display:grid;place-items:center;position:relative;font-size:1rem}
+  .day.birthday{background:#fff1b8;color:#173d83;font-weight:900;font-size:1.35rem;border:3px solid #e9a7bb;border-radius:50%}
+  .small{font-size:.85rem;color:#627999;text-align:center}
+  .cake{font-size:7rem;filter:drop-shadow(0 6px 0 #d8e5f7);margin:12px}
+  .candles{font-size:2rem;letter-spacing:8px}
+  .wish{font-family:Georgia,serif;font-style:italic;font-size:1.4rem;text-align:center}
+  .letter{max-width:600px;background:#fff;padding:clamp(22px,5vw,42px);border:1px solid #dce6f2;box-shadow:0 8px 24px #24436a12;transform:rotate(-.5deg);white-space:pre-line}
+  .letter p{margin-bottom:0}
+  .photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%;max-width:560px}
+  .photo{background:white;padding:10px 10px 25px;box-shadow:0 5px 15px #1d3d641c;transform:rotate(-2deg);text-align:center}
+  .photo:nth-child(even){transform:rotate(2deg)}
+  .photo img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#dbe8f8;display:block}
+  .photo span{display:block;margin-top:10px;font-family:Georgia,serif}
+  .song-card{width:100%;max-width:550px;background:#fff;border-radius:20px;padding:22px;box-shadow:0 8px 25px #1e42631a;text-align:center}
+  .record{font-size:7rem;animation:spin 8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .petals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;max-width:550px}
+  .petal{background:#d8e7f8;border:1px solid #b4cde9;border-radius:60% 40% 60% 40%;padding:18px 8px;color:#214a80;font-weight:bold}
+  .message{display:none;background:#fff;padding:18px;border-radius:15px;margin-top:14px;text-align:center;max-width:500px;box-shadow:0 5px 18px #1d3d6412}
+  .message.show{display:block}
+  .final-photo{width:min(80%,360px);aspect-ratio:1/1;object-fit:cover;border-radius:50%;border:9px solid white;box-shadow:0 0 0 3px #a8c6ed}
+  .heart{color:#e17b9c}
+  .footer{font-size:.75rem;color:#7187a4;text-align:center;margin-top:24px}
+  @media(max-width:430px){.page{padding:22px 17px}.day{min-height:43px}.photo-grid{gap:9px}.week div{font-size:.6rem}.petal{font-size:.9rem}}
+</style>
+</head>
+<body>
+<main class="book">
+  <section class="page active gingham" id="p1">
+    <div class="eyebrow">a little something for you</div>
+    <div class="sticker">🎂 🎀 💌</div>
+    <h1 class="cover-title">Happy Birthday,<br><span id="coverName">Bebi</span>!</h1>
+    <p class="sub">I made this little corner of the internet just for you — filled with memories, wishes, and all the love I want you to feel today. ♡</p>
+    <button class="pill" onclick="go(2)">Open your surprise →</button>
+    <div class="footer">made with love, just for you ♡</div>
+  </section>
+
+  <section class="page" id="p2">
+    <div class="eyebrow">save the date</div><h2>A date worth celebrating! 🎉</h2>
+    <div class="calendar">
+      <div class="calhead" id="calendarTitle">YOUR SPECIAL DAY ♡</div>
+      <div class="week"><div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div></div>
+      <div class="days" id="calendarDays"></div>
+    </div>
+    <p class="small">The world got a little brighter on this day. ✨</p>
+    <div class="nav"><button class="pill secondary" onclick="go(1)">← Back</button><button class="pill" onclick="go(3)">Continue →</button></div>
+  </section>
+
+  <section class="page gingham" id="p3">
+    <div class="eyebrow">close your eyes and make a wish</div>
+    <h2>Before we continue, make a wish</h2>
+    <div class="cake">🎂</div><div class="candles" id="candles">🕯️🕯️🕯️</div>
+    <p class="wish">May this new chapter bring you peace, joy, and everything your heart has been hoping for.</p>
+    <button class="pill" onclick="blow()">Blow the candles ✨</button>
+    <p class="small" id="wishResult">Tap the button when you're ready!</p>
+    <div class="nav"><button class="pill secondary" onclick="go(2)">← Back</button><button class="pill" onclick="go(4)">Open your letter →</button></div>
+  </section>
+
+  <section class="page" id="p4">
+    <div class="eyebrow">a letter from me to you</div><h2>To my favorite person, 💌</h2>
+    <article class="letter"><p id="letterText">Happy birthday, bebi! ♡
+
+I hope you know how special you are to me. Thank you for being someone who can make ordinary days feel memorable just by being part of them.
+
+Today, I hope you feel loved in all the little ways — through the messages you receive, the people who show up for you, and the moments that make you smile. You deserve kindness, genuine happiness, and so many beautiful things.
+
+Whatever this new year of your life brings, I hope you keep believing in yourself and in the good things waiting ahead. I'll always be cheering you on and wishing the best for you.
+
+Happy birthday again, my bebi. I love you so much. Enjoy your day, okay? You deserve it. ♡</p></article>
+    <div class="nav"><button class="pill secondary" onclick="go(3)">← Back</button><button class="pill" onclick="go(5)">Our memories →</button></div>
+  </section>
+
+  <section class="page gingham" id="p5">
+    <div class="eyebrow">little moments, big feelings</div><h2>Our tiny photo album 📸</h2>
+    <p class="small">Replace these sample pictures with your favorite photos together.</p>
+    <div class="photo-grid">
+      <div class="photo"><img src="https://placehold.co/500x500/d8e7f8/355987?text=Our+photo+1" alt="Add a favorite photo"><span>my favorite memory ♡</span></div>
+      <div class="photo"><img src="https://placehold.co/500x500/f5dfe8/8c5270?text=Our+photo+2" alt="Add another favorite photo"><span>you make me smile</span></div>
+      <div class="photo"><img src="https://placehold.co/500x500/e6edf9/355987?text=Our+photo+3" alt="Add another favorite photo"><span>one for the scrapbook</span></div>
+      <div class="photo"><img src="https://placehold.co/500x500/e9e0f4/725d93?text=Our+photo+4" alt="Add another favorite photo"><span>and many more to come</span></div>
+    </div>
+    <div class="nav"><button class="pill secondary" onclick="go(4)">← Back</button><button class="pill" onclick="go(6)">A song for you →</button></div>
+  </section>
+
+  <section class="page" id="p6">
+    <div class="eyebrow">this one reminds me of you</div><h2>A song for my bebi 🎶</h2>
+    <div class="song-card"><div class="record">💿</div><h2 id="songTitle">Your Universe</h2><p id="songArtist">Rico Blanco</p><p class="small">Add your song link below in the HTML to make this card open your special song.</p><button class="pill" onclick="openSong()">Play our song ♫</button></div>
+    <div class="nav"><button class="pill secondary" onclick="go(5)">← Back</button><button class="pill" onclick="go(7)">Pick a flower →</button></div>
+  </section>
+
+  <section class="page gingham" id="p7">
+    <div class="eyebrow">a flower full of reasons</div><h2>Pick a petal 🌷</h2>
+    <div class="petals">
+      <button class="petal" onclick="reason(0)">Comfort</button><button class="petal" onclick="reason(1)">Laughter</button>
+      <button class="petal" onclick="reason(2)">Home</button><button class="petal" onclick="reason(3)">Patience</button>
+      <button class="petal" onclick="reason(4)">Loyalty</button><button class="petal" onclick="reason(5)">Warmth</button>
+    </div>
+    <div class="message" id="reasonBox"></div>
+    <p class="small">Every petal is a little reminder of why you're loved.</p>
+    <div class="nav"><button class="pill secondary" onclick="go(6)">← Back</button><button class="pill" onclick="go(8)">One last thing →</button></div>
+  </section>
+
+  <section class="page" id="p8">
+    <div class="eyebrow">one last thing</div>
+    <img class="final-photo" src="https://placehold.co/500x500/d8e7f8/355987?text=Your+favorite+photo" alt="Your favorite photo">
+    <h1 class="cover-title">I love you, <span id="finalName">Bebi</span>! <span class="heart">♥</span></h1>
+    <p class="sub">I hope this made you smile, even just a little. You are appreciated, celebrated, and loved more than this tiny webpage can explain.</p>
+    <p class="wish">Happy birthday, bebi. Here's to more memories together. ♡</p>
+    <button class="pill" onclick="go(1)">Read it all again ↻</button>
+  </section>
+</main>
+<script>
+/* PERSONALIZE HERE: change the name, birthday date, letter, and song link. */
+const BEBI_NAME = "Bebi";
+const BIRTHDAY_MONTH = 2; // 1 = January, 2 = February, ... 12 = December
+const BIRTHDAY_DAY = 18;
+const BIRTHDAY_YEAR = 2027;
+const SONG_URL = "https://www.youtube.com/results?search_query=Your+Universe+Rico+Blanco";
+const reasons = [
+  "You feel like a safe place to land when the day has been a lot.",
+  "You make even the simplest moments feel fun and memorable.",
+  "Being with you makes ordinary places feel special.",
+  "Thank you for understanding that we are both learning and growing.",
+  "I appreciate the way you show up and keep being you.",
+  "You bring a kind of warmth into my life that is hard to put into words."
+];
+document.getElementById("coverName").textContent = BEBI_NAME;
+document.getElementById("finalName").textContent = BEBI_NAME;
+document.getElementById("calendarTitle").textContent =
+  new Date(BIRTHDAY_YEAR, BIRTHDAY_MONTH-1, 1).toLocaleString("en-US",{month:"long"}) + " " + BIRTHDAY_YEAR + " ♡";
+function makeCalendar(){
+  const box=document.getElementById("calendarDays");
+  const first=new Date(BIRTHDAY_YEAR,BIRTHDAY_MONTH-1,1).getDay();
+  const count=new Date(BIRTHDAY_YEAR,BIRTHDAY_MONTH,0).getDate();
+  box.innerHTML="";
+  for(let i=0;i<first;i++){const blank=document.createElement("div");blank.className="day";box.appendChild(blank);}
+  for(let d=1;d<=count;d++){const el=document.createElement("div");el.className="day"+(d===BIRTHDAY_DAY?" birthday":"");el.textContent=d;box.appendChild(el);}
+}
+makeCalendar();
+function go(n){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById("p"+n).classList.add("active");window.scrollTo({top:0,behavior:"smooth"});}
+function blow(){document.getElementById("candles").textContent="✨🎂✨";document.getElementById("wishResult").textContent="Wish made! I hope it comes true. ♡";}
+function reason(i){const box=document.getElementById("reasonBox");box.textContent=reasons[i];box.classList.add("show");}
+function openSong(){window.open(SONG_URL,"_blank","noopener,noreferrer");}
+</script>
+</body>
+</html>
